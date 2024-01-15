@@ -1,0 +1,30 @@
+service: serverless-typescript-express-template
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: dev
+
+package:
+  excludeDevDependencies: true
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  app:
+    name: serverless-typescript-express-template
+    handler: src/index.handler
+    disableLogs: false
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: "*"
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: "*"
